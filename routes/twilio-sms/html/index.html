@@ -3,12 +3,33 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>discount-code Activity</title>
+    <title>Twilo-SMS Activity</title>
     <link rel="stylesheet" type="text/css" href="dist/design-system/styles/salesforce-lightning-design-system.css" >
 </head>
 <body>
 <div class="slds-form slds-m-around--medium">
     <div class="slds-form-element slds-m-bottom_small">
+        <label class="slds-form-element__label" for="sms-keyword">SMS Keyword</label>
+        <div class="slds-form-element__control">
+            <input type="text" id="sms-keyword-id" placeholder="SMS Keyword value..." class="slds-input" />
+        </div>
+          <!-- <div class="form-group">
+            <label for="contactKey">Contact Key</label>
+            <input type="text" class="form-control" id="inContactKey" ></input>
+          </div>
+          <div class="form-group">
+            <label for="contactFirstName">First Name</label>
+            <input type="text" class="form-control" id="inContactFirstName" ></input>
+          </div>
+          <div class="form-group">
+            <label for="contactLastName">Last Name</label>
+            <input type="text" class="form-control" id="inContactLastName" ></input>
+          </div>
+          <div class="form-group">
+            <label for="messageText">Message Text</label>
+            <textarea type="text" class="form-control" id="inMessageText" rows="3" ></textarea>
+          </div>
+
         <label class="slds-form-element__label" for="discount-code">Select Label</label>
         <div class="slds-form-element__control">
             <div class="slds-select_container">
@@ -19,7 +40,7 @@
                     <option value="25">25%</option>
                 </select>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <div id="discount-code-output" class="slds-text-heading_small"></div>

@@ -23,7 +23,6 @@ module.exports = function twilioSmsActivity(app, options) {
 
     // index redirect
     app.get('/routes/twilio-sms', function(req, res) {
-        console.log(`Redirection: ${activityDir}/index.html`);
         return res.redirect(`/routes/twilio-sms/index.html`);
     });
 
