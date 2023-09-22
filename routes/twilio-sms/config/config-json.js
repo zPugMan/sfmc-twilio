@@ -20,6 +20,9 @@ module.exports = function configJSON(req) {
             inArguments: [
               {
                 contactKey: ""
+              },
+              {
+                smsKeyword: ""
               }
             ],
             outArguments: [],
