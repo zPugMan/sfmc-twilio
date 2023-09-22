@@ -23,6 +23,9 @@ module.exports = function configJSON(req) {
               },
               {
                 smsKeyword: ""
+              },
+              {
+                smsMessage: ""
               }
             ],
             outArguments: [],
