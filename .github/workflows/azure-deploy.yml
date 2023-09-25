@@ -9,8 +9,8 @@
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 
 env:
   AZURE_WEBAPP_NAME: 'sfmc-twilio'   # set this to your application's name
