@@ -44,5 +44,27 @@ module.exports = function twilioSmsActivity(app, options) {
         return res.status(200).json({});
     });
 
-    
+    app.post('/routes/twilio-sms/execute', function(req,res) {
+        console.log("Request to execute..");
+
+        const reqBody = req.body;
+        console.log("Received payload: ", JSON.stringify(req.body));
+        return res.status(200).json({});
+    });
+
+    app.post('/routes/twilio-sms/publish', function(req,res){
+        console.log("Request to publish..");
+        return res.status(200).json({});
+    });
+
+    app.post('/routes/twilio-sms/validate', function(req,res){
+        console.log("Request to validate..");
+        return res.status(200).json({});
+    });
+
+    app.post('/routes/twilio-sms/stop', function(req,res){
+        console.log("Request to STOP!");
+        return res.status(200).json({});
+    });
+
 };
