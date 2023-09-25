@@ -51,9 +51,9 @@ function onInitActivity(payload){
         setInputTextElement('sms-keyword-id', smsKeywordArg.smsKeyword);
     }
 
-    const contactKeyArg = inArgs.find((arg)=>arg.contactKey);
-    if(contactKeyArg) {
-        setInputTextElement('contact-key', contactKeyArg.contactKey);
+    const contactPhoneArg = inArgs.find((arg)=>arg.smsPhone);
+    if(contactPhoneArg) {
+        setInputTextElement('contact-phone', contactPhoneArg.smsPhone);
     }
 
     const smsMessage = inArgs.find((arg)=>arg.smsMessage);
@@ -68,7 +68,7 @@ function setupEventHandlers() {
     //change events from form
     document.getElementById('sms-keyword-id').addEventListener('change', onInputValueChange);
     document.getElementById('sms-message-txt').addEventListener('change', onInputValueChange);
-    document.getElementById('contact-key').addEventListener('change', onInputValueChange);
+    document.getElementById('contact-phone').addEventListener('change', onInputValueChange);
 
     //button events
     document.getElementById('done').addEventListener('click', onDoneButtonClick);
@@ -80,7 +80,7 @@ function onInputValueChange() {
 
     hasMinimum = Boolean(
         document.getElementById('sms-keyword-id').value &&
-        document.getElementById('contact-key').value &&
+        document.getElementById('contact-phone').value &&
         document.getElementById('sms-message-txt').value
     );
 
@@ -140,7 +140,7 @@ function requestedInteraction(payload) {
     //TODO refactor this to a hashmap or something; this is repetitive!
     if(activity && activity.arguments && activity.arguments.execute.inArguments.length > 0) {
         setInputTextElement('sms-keyword-id', activity.arguments.execute.inArguments[0].smsKeyword);
-        setInputTextElement('contact-key', activity.arguments.execute.inArguments[0].contactKey);
+        setInputTextElement('contact-phone', activity.arguments.execute.inArguments[0].smsPhone);
         setInputTextElement('sms-message-txt', activity.arguments.execute.inArguments[0].smsMessage);
     }
 
@@ -199,7 +199,7 @@ function setupTestHarness() {
                 execute: {
                     inArguments: [
                         {
-                            contactKey: "{{Contact.Key}}",
+                            smsPhone: "(555) 111-2233",
                         },
                         {
                             smsKeyword: "DONATE2"
