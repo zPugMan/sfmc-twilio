@@ -109,7 +109,7 @@ function onDoneButtonClick() {
     // get the option that the user selected and save it to
     activity.arguments.execute.inArguments = [{
         smsKeyword: document.getElementById('sms-keyword-id').value,
-        contactKey: document.getElementById('contact-key').value,
+        contactKey: document.getElementById('contact-phone').value,
         smsMessage: document.getElementById('sms-message-txt').value
     }];
 
