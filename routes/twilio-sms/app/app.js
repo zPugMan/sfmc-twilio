@@ -41,6 +41,7 @@ module.exports = function twilioSmsActivity(app, options) {
     // ```````````````````````````````````````````````````````
     app.post('/routes/twilio-sms/save', function(req, res){
         console.log('Request to save');
+        console.info('Saving: ', JSON.stringify(req.body));
         return res.status(200).json({});
     });
 
@@ -54,16 +55,19 @@ module.exports = function twilioSmsActivity(app, options) {
 
     app.post('/routes/twilio-sms/publish', function(req,res){
         console.log("Request to publish..");
+        console.info('Publishing: ', JSON.stringify(req.body));
         return res.status(200).json({});
     });
 
     app.post('/routes/twilio-sms/validate', function(req,res){
         console.log("Request to validate..");
+        console.info('Validating: ', JSON.stringify(req.body));
         return res.status(200).json({});
     });
 
     app.post('/routes/twilio-sms/stop', function(req,res){
         console.log("Request to STOP!");
+        console.info('Stopping: ', JSON.stringify(req.body));
         return res.status(200).json({});
     });
 

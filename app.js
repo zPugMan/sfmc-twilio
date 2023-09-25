@@ -4,6 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//support Azure AppInsights
+let appInsights = require('applicationinsights');
+var appInsightsDSN = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
+if (appInsightsDSN)  {
+  console.info("Retreived app insights DSN");
+  appInsights.setup(appInsightsDSN)
+    .setAutoCollectConsole(true, true)    //enables console.log requests
+    .start();
+} else {
+  console.error("Failed to retrieve app insights DSN from environment");
+}
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
