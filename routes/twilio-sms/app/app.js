@@ -35,4 +35,14 @@ module.exports = function twilioSmsActivity(app, options) {
     app.get('/routes/twilio-sms/config.json', function(req,res){
         return res.status(200).json(configJSON(req));
     });
+
+    // ```````````````````````````````````````````````````````
+    // BEGIN JOURNEY BUILDER LIFECYCLE EVENTS
+    // ```````````````````````````````````````````````````````
+    app.post('/routes/twilio-sms/save', function(req, res){
+        console.log('Request to save');
+        return res.status(200).json({});
+    });
+
+    
 };
