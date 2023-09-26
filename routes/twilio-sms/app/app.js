@@ -50,7 +50,7 @@ module.exports = function twilioSmsActivity(app, options) {
 
         const reqBody = req.body;
         console.log("Received payload: ", JSON.stringify(req.body));
-        return res.status(200).json({});
+        return res.status(200).json({status: "Success", errorCode: 0});
     });
 
     app.post('/routes/twilio-sms/publish', function(req,res){
