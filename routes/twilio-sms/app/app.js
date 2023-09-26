@@ -59,6 +59,7 @@ module.exports = function twilioSmsActivity(app, options) {
             return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "No payload body"});
         }
 
+        console.log("Attempting JWT decode");
         JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
             if(err) {
                 console.error("Error from JWT decode", err);
