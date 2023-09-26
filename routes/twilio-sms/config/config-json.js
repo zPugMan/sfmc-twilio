@@ -3,7 +3,7 @@ module.exports = function configJSON(req) {
         workflowApiVersion: '1.1',
         metaData: {
           // the location of our icon file
-          icon: '/routes/twilio-sms/images/twilio-icon.png',
+          icon: 'routes/twilio-sms/images/twilio-icon.png',
           category: 'message'
         },
         // For Custom Activity this must say, "REST"
@@ -18,6 +18,9 @@ module.exports = function configJSON(req) {
           execute: {
             // See: https://developer.salesforce.com/docs/atlas.en-us.mc-apis.meta/mc-apis/how-data-binding-works.htm
             inArguments: [
+              {
+                contactKey: "{{Contact.Key}}"
+              },
               {
                 smsKeyword: ""
               },
