@@ -3,14 +3,14 @@ module.exports = function configJSON(req) {
         workflowApiVersion: '1.1',
         metaData: {
           // the location of our icon file
-          icon: `https://${req.headers.host}/routes/twilio-sms/images/twilio-tile.svg`,
+          icon: '/routes/twilio-sms/images/twilio-tile.svg',
           category: 'message'
         },
         // For Custom Activity this must say, "REST"
         type: 'REST',
         lang: {
           'en-US': {
-            name: 'Twilio SMS',
+            name: 'Twilio v2',
             description: 'Sends SMS via Twilio'
           }
         },
