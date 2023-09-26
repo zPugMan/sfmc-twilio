@@ -19,9 +19,6 @@ module.exports = function configJSON(req) {
             // See: https://developer.salesforce.com/docs/atlas.en-us.mc-apis.meta/mc-apis/how-data-binding-works.htm
             inArguments: [
               {
-                contactKey: "{{Contact.Key}}"
-              },
-              {
                 smsKeyword: ""
               },
               {
