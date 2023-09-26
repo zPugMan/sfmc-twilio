@@ -13,6 +13,8 @@
 
 const express = require('express')
 const configJSON = require('../config/config-json')
+const Path = require('path');
+const JWT = require(Path.join(__dirname, '../../../','lib', 'jwtDecoder.js'));
 
 module.exports = function twilioSmsActivity(app, options) {
     const activityDir = `${options.rootDirectory}/routes/twilio-sms`;
@@ -50,7 +52,29 @@ module.exports = function twilioSmsActivity(app, options) {
 
         const reqBody = req.body;
         console.log("Received payload: ", JSON.stringify(req.body));
-        return res.status(200).json({status: "Success", errorCode: 0});
+        // return res.status(200).json({status: "Success", errorCode: 0});
+
+        if (!(req.body)) {
+            console.warn("No payload body received");
+            return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "No payload body"});
+        }
+
+        JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
+            if(err) {
+                console.error("Error from JWT decode", err);
+                return res.status(401).json({status: "Error", errorCode: 401, errorMessage: "Decoding error"});
+            }
+
+            if(decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+                var decodeArgs = decoded.inArguments[0];
+                console.log("Decoded args: \n", JSON.stringify(decodeArgs));
+                return res.status(200).json({status: "Success", errorCode: 0});
+            } else {
+                console.error("Invalid inArguments");
+                return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
+            }
+
+        });
     });
 
     app.post('/routes/twilio-sms/publish', function(req,res){
