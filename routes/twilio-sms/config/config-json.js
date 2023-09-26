@@ -39,7 +39,9 @@ module.exports = function configJSON(req) {
             // wait in ms between retry.
             retryDelay: 1000,
             // The number of concurrent requests Journey Builder will send all together
-            concurrentRequests: 5
+            concurrentRequests: 5,
+            format: "JSON",
+            useJWT: true
           }
         },
         configurationArguments: {
