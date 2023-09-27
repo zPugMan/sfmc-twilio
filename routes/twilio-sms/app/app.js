@@ -59,23 +59,29 @@ module.exports = function twilioSmsActivity(app, options) {
             return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "No payload body"});
         }
 
-        console.log("Attempting JWT decode");
-        JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
-            if(err) {
-                console.error("Error from JWT decode", err);
-                return res.status(401).json({status: "Error", errorCode: 401, errorMessage: "Decoding error"});
-            }
+        if(process.env.JWT_SECRET) {
+            console.log("Attempting JWT decode");
+            JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
+                if(err) {
+                    console.error("Error from JWT decode", err);
+                    return res.status(401).json({status: "Error", errorCode: 401, errorMessage: "Decoding error"});
+                }
 
-            if(decoded && decoded.inArguments && decoded.inArguments.length > 0) {
-                var decodeArgs = decoded.inArguments[0];
-                console.log("Decoded args: \n", JSON.stringify(decodeArgs));
-                return res.status(200).json({status: "Success", errorCode: 0});
-            } else {
-                console.error("Invalid inArguments");
-                return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
-            }
+                if(decoded && decoded.inArguments && decoded.inArguments.length > 0) {
+                    var decodeArgs = decoded.inArguments[0];
+                    console.log("Decoded args: \n", JSON.stringify(decodeArgs));
+                    return res.status(200).json({status: "Success", errorCode: 0});
+                } else {
+                    console.error("Invalid inArguments");
+                    return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
+                }
 
-        });
+            });
+        } else {
+            console.log("JWT decoding is not utilized");
+            console.log("Payload: ", JSON.stringify(req.body));
+            return res.status(200).json({status: "Success", errorCode: 0});
+        }
     });
 
     app.post('/routes/twilio-sms/publish', function(req,res){
