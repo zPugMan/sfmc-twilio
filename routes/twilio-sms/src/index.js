@@ -114,7 +114,7 @@ function onDoneButtonClick() {
     }];
 
     // you can set the name that appears below the activity with the name property
-    activity.name = `Issue ${activity.arguments.execute.inArguments[0].smsKeyword} keyword - ${activity.arguments.execute.inArguments[0].contactKey}`;
+    activity.name = `SMS ${activity.arguments.execute.inArguments[0].smsKeyword} keyword`;
 
     console.log('------------ triggering:updateActivity({obj}) ----------------');
     console.log('Sending message back to updateActivity');
