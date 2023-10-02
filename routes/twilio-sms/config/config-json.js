@@ -41,7 +41,7 @@ module.exports = function configJSON(req) {
             // The number of concurrent requests Journey Builder will send all together
             concurrentRequests: 5,
             format: "JSON",
-            useJWT: true
+            useJwt: true
           }
         },
         configurationArguments: {
