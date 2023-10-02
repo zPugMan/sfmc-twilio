@@ -10,7 +10,7 @@ module.exports = function configJSON(req) {
         type: 'REST',
         lang: {
           'en-US': {
-            name: 'Twilio v2',
+            name: 'Twilio v3',
             description: 'Sends SMS via Twilio'
           }
         },
@@ -65,7 +65,26 @@ module.exports = function configJSON(req) {
         schema: {
           arguments: {
             execute: {
-              inArguments: [],
+              inArguments: [{
+                smsKeyword: 
+                {
+                  dataType: 'Text',
+                  direction: 'in',
+                  access: 'visible'
+                },
+                smsPhone: 
+                {
+                  dataType: 'Text',
+                  direction: 'in',
+                  access: 'visible'
+                },
+                smsMessage: 
+                {
+                  dataType: 'Text',
+                  direction: 'in',
+                  access: 'visible'
+                }
+             }],
               outArguments: [{
                 status: {
                   dataType: 'Text',
