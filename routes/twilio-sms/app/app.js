@@ -50,8 +50,8 @@ module.exports = function twilioSmsActivity(app, options) {
     app.post('/routes/twilio-sms/execute', function(req,res) {
         console.log("Request to execute..");
 
-        const reqBody = req.body;
-        console.log("Received payload: ", JSON.stringify(req.body));
+        // const reqBody = req.body;
+        // console.log("Received payload: ", JSON.stringify(req.body));
         // return res.status(200).json({status: "Success", errorCode: 0});
 
         if (!(req.body)) {
@@ -60,6 +60,7 @@ module.exports = function twilioSmsActivity(app, options) {
         }
 
         if(process.env.JWT_SECRET) {
+            console.log("Request received: ", req.body);
             console.log("Attempting JWT decode");
             JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
                 if(err) {
