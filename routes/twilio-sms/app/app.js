@@ -23,6 +23,10 @@ module.exports = function twilioSmsActivity(app, options) {
     app.use('/routes/twilio-sms/dist', express.static(`${activityDir}/dist`));
     app.use('/routes/twilio-sms/images', express.static(`${activityDir}/images`));
 
+    app.use(require('body-parser').raw({
+        type: 'application/jwt'
+    }));
+
     // index redirect
     app.get('/routes/twilio-sms', function(req, res) {
         return res.redirect(`/routes/twilio-sms/index.html`);
