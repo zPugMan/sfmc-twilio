@@ -23,6 +23,10 @@ module.exports = function twilioSmsActivity(app, options) {
     app.use('/routes/twilio-sms/dist', express.static(`${activityDir}/dist`));
     app.use('/routes/twilio-sms/images', express.static(`${activityDir}/images`));
 
+    app.use(require('body-parser').raw({
+        type: 'application/jwt'
+    }));
+
     // index redirect
     app.get('/routes/twilio-sms', function(req, res) {
         return res.redirect(`/routes/twilio-sms/index.html`);
@@ -60,7 +64,7 @@ module.exports = function twilioSmsActivity(app, options) {
         }
 
         if(process.env.JWT_SECRET) {
-            console.log("Request received: ", req.body);
+            console.log("Encrypted request received: ", req.body);
             console.log("Attempting JWT decode");
             JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
                 if(err) {

@@ -41,7 +41,7 @@ module.exports = function configJSON(req) {
             // The number of concurrent requests Journey Builder will send all together
             concurrentRequests: 5,
             format: "JSON",
-            useJwt: true,
+            useJwt: process.env.JWT_ENABLED ? process.env.JWT_ENABLED : false,
             customerKey: process.env.SALT_EXTERNAL_KEY ? process.env.SALT_EXTERNAL_KEY : ""
           }
         },
