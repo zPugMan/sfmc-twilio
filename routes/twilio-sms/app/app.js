@@ -73,7 +73,7 @@ module.exports = function twilioSmsActivity(app, options) {
                 }
 
                 if(decoded && decoded.inArguments && decoded.inArguments.length > 0) {
-                    console.log("keyValue: ", decoded.keyValue);
+                    console.log("Decoded payload: ", JSON.stringify(decoded));
                     var decodeArgs = decoded.inArguments[0];
                     console.log("Decoded args: \n", JSON.stringify(decodeArgs));
                     return res.status(200).json({status: "Success", errorCode: 0});
