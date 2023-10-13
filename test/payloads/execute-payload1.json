@@ -1,0 +1,17 @@
+{
+    "inArguments": [
+        {
+            "smsKeyword": "HitUP!",
+            "smsPhone": "8846597894",
+            "smsMessage": "Hi there Tester! This is a test."
+        }
+    ],
+    "outArguments": [],
+    "activityObjectID": "62d6fed2-511e-4720-a309-7e393decd33e",
+    "journeyId": "a4dcaf9f-e967-4b14-8159-d4c88d5c7462",
+    "activityId": "62d6fed2-511e-4720-a309-7e393decd33e",
+    "definitionInstanceId": "cec6e0a0-9761-463d-a159-eeb7ee4a8a51",
+    "activityInstanceId": "3be6161f-77b3-4dfd-b986-bd0787ee6b0c",
+    "keyValue": "testemail123@gmail.com",
+    "mode": 0
+}

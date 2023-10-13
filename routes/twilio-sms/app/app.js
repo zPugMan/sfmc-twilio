@@ -14,7 +14,9 @@
 const express = require('express')
 const configJSON = require('../config/config-json')
 const Path = require('path');
+const azureSender = require('../../../lib/azureSender');
 const JWT = require(Path.join(__dirname, '../../../','lib', 'jwtDecoder.js'));
+const AzureBus = require(Path.join(__dirname, '../../../','lib', 'azureSender.js'));
 
 module.exports = function twilioSmsActivity(app, options) {
     const activityDir = `${options.rootDirectory}/routes/twilio-sms`;
@@ -76,12 +78,25 @@ module.exports = function twilioSmsActivity(app, options) {
                     console.log("Decoded payload: ", JSON.stringify(decoded));
                     var decodeArgs = decoded.inArguments[0];
                     console.log("Decoded args: \n", JSON.stringify(decodeArgs));
-                    return res.status(200).json({status: "Success", errorCode: 0});
+                    azureSender.formMessage(decoded, (err, result) => {
+                        if(err) {
+                            console.error("Error in transforming payload", err);
+                            return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
+                        }
+
+                        azureSender.sendPayload(result, (err,result)=> {
+                            if(err) {
+                                console.error("Error in queueing request", err);
+                                return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
+                            }
+
+                            return res.status(201).json({status: "Success", errorCode: 0});
+                        });
+                    });
                 } else {
                     console.error("Invalid inArguments");
                     return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
                 }
-
             });
         } else {
             console.log("JWT decoding is not utilized");
