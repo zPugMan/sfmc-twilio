@@ -65,6 +65,8 @@ module.exports = function twilioSmsActivity(app, options) {
             return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "No payload body"});
         }
 
+        let sfmcRequest = req.body;
+
         if(process.env.JWT_SECRET) {
             console.log("Encrypted request received: ", req.body);
             console.log("Attempting JWT decode");
@@ -78,23 +80,26 @@ module.exports = function twilioSmsActivity(app, options) {
                     console.log("Decoded payload: ", JSON.stringify(decoded));
                     var decodeArgs = decoded.inArguments[0];
                     console.log("Decoded args: \n", JSON.stringify(decodeArgs));
-                    azureSender.formMessage(decoded, (err, result) => {
-                        console.info("ServiceBus message formation completed");
-                        if(err) {
-                            console.error("Error in transforming payload", err);
-                            return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
-                        }
 
-                        azureSender.sendPayload(result, (err,result)=> {
-                            console.info("Send request to ServiceBus message complete");
-                            if(err) {
-                                console.error("Error in queueing request", err);
-                                return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
-                            }
+                    sfmcRequest = decoded;
+
+                    // azureSender.formMessage(decoded, (err, result) => {
+                    //     console.info("ServiceBus message formation completed");
+                    //     if(err) {
+                    //         console.error("Error in transforming payload", err);
+                    //         return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
+                    //     }
+
+                    //     azureSender.sendPayload(result, (err,result)=> {
+                    //         console.info("Send request to ServiceBus message complete");
+                    //         if(err) {
+                    //             console.error("Error in queueing request", err);
+                    //             return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
+                    //         }
                             
-                            return res.status(201).json({status: "Success", errorCode: 0});
-                        });
-                    });
+                    //         return res.status(201).json({status: "Success", errorCode: 0});
+                    //     });
+                    // });
                 } else {
                     console.error("Invalid inArguments");
                     return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
@@ -103,8 +108,28 @@ module.exports = function twilioSmsActivity(app, options) {
         } else {
             console.log("JWT decoding is not utilized");
             console.log("Payload: ", JSON.stringify(req.body));
-            return res.status(200).json({status: "Success", errorCode: 0});
+            // return res.status(200).json({status: "Success", errorCode: 0});
         }
+
+        let busMsg = {};
+        try {
+            busMsg = azureSender.formMessage(sfmcRequest);
+            console.info("ServiceBus message formation completed");
+        } catch(e) {
+            return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Failed to transform payload. " + e.message});
+        }
+        
+
+        azureSender.sendPayload(busMsg)
+            .then((result) => {
+                console.info("Send request to ServiceBus message complete");
+                return res.status(201).json({status: "Success", errorCode: 0});
+            })
+            .catch((e) => {
+                console.error("Error in queueing request", e);
+                return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
+            });
+            
     });
 
     app.post('/routes/twilio-sms/publish', function(req,res){
