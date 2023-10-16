@@ -79,17 +79,19 @@ module.exports = function twilioSmsActivity(app, options) {
                     var decodeArgs = decoded.inArguments[0];
                     console.log("Decoded args: \n", JSON.stringify(decodeArgs));
                     azureSender.formMessage(decoded, (err, result) => {
+                        console.info("ServiceBus message formation completed");
                         if(err) {
                             console.error("Error in transforming payload", err);
                             return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
                         }
 
                         azureSender.sendPayload(result, (err,result)=> {
+                            console.info("Send request to ServiceBus message complete");
                             if(err) {
                                 console.error("Error in queueing request", err);
                                 return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
                             }
-
+                            
                             return res.status(201).json({status: "Success", errorCode: 0});
                         });
                     });
