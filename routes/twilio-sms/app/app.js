@@ -83,23 +83,6 @@ module.exports = function twilioSmsActivity(app, options) {
 
                     sfmcRequest = decoded;
 
-                    // azureSender.formMessage(decoded, (err, result) => {
-                    //     console.info("ServiceBus message formation completed");
-                    //     if(err) {
-                    //         console.error("Error in transforming payload", err);
-                    //         return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
-                    //     }
-
-                    //     azureSender.sendPayload(result, (err,result)=> {
-                    //         console.info("Send request to ServiceBus message complete");
-                    //         if(err) {
-                    //             console.error("Error in queueing request", err);
-                    //             return res.status(500).json({status: "Error", errorCode: 500, errorMessage: "Internal error"});
-                    //         }
-                            
-                    //         return res.status(201).json({status: "Success", errorCode: 0});
-                    //     });
-                    // });
                 } else {
                     console.error("Invalid inArguments");
                     return res.status(400).json({status: "Error", errorCode: 400, errorMessage: "Invalid inArguments"});
@@ -108,7 +91,6 @@ module.exports = function twilioSmsActivity(app, options) {
         } else {
             console.log("JWT decoding is not utilized");
             console.log("Payload: ", JSON.stringify(req.body));
-            // return res.status(200).json({status: "Success", errorCode: 0});
         }
 
         let busMsg = {};
