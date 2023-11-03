@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "jest",
-    "build": "npx webpack --config ./routes/twilio-sms/webpack.config.js"
+      "build": "npx webpack --config ./routes/twilio-sms/webpack.config.js"
   },
   "dependencies": {
     "@azure/service-bus": "^7.9.2",
