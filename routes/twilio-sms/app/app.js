@@ -67,8 +67,10 @@ module.exports = function twilioSmsActivity(app, options) {
 
         let sfmcRequest = req.body;
 
+        console.log("Request headers: " + req.rawHeaders);
+
         if(process.env.JWT_SECRET) {
-            console.log("Encrypted request received: ", req.body);
+            console.log("Encrypted request received: ", req.body.toString());
             console.log("Attempting JWT decode");
             JWT(req.body, process.env.JWT_SECRET, (err, decoded) =>{
                 if(err) {
