@@ -10,7 +10,7 @@
   "dependencies": {
     "@azure/service-bus": "^7.9.2",
     "@salesforce-ux/design-system": "^2.22.0",
-    "applicationinsights": "^2.7.3",
+    "applicationinsights": "^2.9.8",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
